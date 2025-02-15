@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - theta_client_flutter (1.12.0):
+    - Flutter
+    - THETAClient (= 1.12.0)
+  - THETAClient (1.12.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - theta_client_flutter (from `.symlinks/plugins/theta_client_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - THETAClient
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  theta_client_flutter:
+    :path: ".symlinks/plugins/theta_client_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  theta_client_flutter: 258f9e7bc04262d770017cd57029c24501fe941f
+  THETAClient: 15961ec25ff4739c7f11e78ccee72c2bd68ecf03
+
+PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
+
+COCOAPODS: 1.16.2
