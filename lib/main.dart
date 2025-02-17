@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:theta_client_flutter/theta_client_flutter.dart';
 
@@ -31,7 +33,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _thetaClientFlutter = ThetaClientFlutter();
+  bool _previewRunning = false;
   String screenInfo = '';
+  Uint8List frameData = Uint8List(0);
 
   @override
   void initState() {
@@ -58,6 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
+              Container(
+                height: 240,
+                color: Colors.black,
+                child: Center(
+                  child: Image.memory(
+                    frameData,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(color: Colors.black);
+                    },
+                    gaplessPlayback: true,
+                  ),
+                ),
+              ),
               Text('Flutter demonstration of RICOH THETA official SDK'),
               ElevatedButton(
                 onPressed: () async {
@@ -108,7 +125,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: const Text('Take Picture'),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  _previewRunning = true;
+                  _thetaClientFlutter.getLivePreview((newFrameData) {
+                    if (!mounted) return false;
+                    setState(() {
+                      frameData = newFrameData;
+                      screenInfo = 'Receiving preview frames';
+                    });
+                    return _previewRunning;
+                  });
+                },
+                child: const Text('Start Live Preview'),
+              ),
               const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  _previewRunning = false;
+                  setState(() {
+                    screenInfo = 'Live preview stopped';
+                    print(screenInfo);
+                  });
+                },
+                child: const Text('Stop Live Preview'),
+              ),
               ElevatedButton(
                 onPressed: () async {
                   try {
